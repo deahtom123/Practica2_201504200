@@ -495,6 +495,7 @@ def crearlista():
     	archi.write("A"+str(j)+"->A"+str(j+1)+" ");
     archi.write("}")
     archi.close()
+    ejecutar("lista")
 def creartxtcola():
 	 archi=open('cola.txt','w')
 	 archi.close
@@ -511,7 +512,8 @@ def crearcola():
     for j in range(i-1):
     	archi.write("A"+str(j)+"->A"+str(j+1)+" ");
     archi.write("}")
-    archi.close()	
+    archi.close()
+    ejecutar("cola")	
 def creartxtpila():
 	 archi=open('pila.txt','w')
 	 archi.close
@@ -528,7 +530,50 @@ def crearpila():
     for j in range(i-1):
     	archi.write("A"+str(j)+"->A"+str(j+1)+" ");
     archi.write("}")
-    archi.close()	
+    archi.close()
+    ejecutar("pila")
+def creartxtmatriz():
+	 archi=open('matriz.txt','w')
+	 archi.close
+	 crearmatriz()
+def crearmatriz():
+    archi=open('matriz.txt','a')
+    archi.write("digraph G {")
+    auxiliar=matriz.cabeza
+    print(auxiliar.getInfo())
+    auxiliar2=auxiliar
+    while auxiliar2:
+    	auxiliar=auxiliar2
+    	while auxiliar:
+    		if auxiliar.getDerecha()!=None:
+    			archi.write('"'+auxiliar.getInfo()+'"->"'+auxiliar.getDerecha().getInfo()+'" ')
+    		if auxiliar.getIzquierda()!=None:
+    			archi.write('"'+auxiliar.getInfo()+'"->"'+auxiliar.getIzquierda().getInfo()+'" ')
+    		if auxiliar.getArriba()!=None:
+    			archi.write('"'+auxiliar.getInfo()+'"->"'+auxiliar.getArriba().getInfo()+'" ')
+    		if auxiliar.getAbajo()!=None:
+    			archi.write('"'+auxiliar.getInfo()+'"->"'+auxiliar.getAbajo().getInfo()+'" ')
+    		if auxiliar.getProfundidabajo()!=None:
+    			auxiliar3=auxiliar
+    			while auxiliar3.getProfundidabajo():
+    				archi.write('"'+auxiliar3.getInfo()+'"->"'+auxiliar3.getProfundidabajo().getInfo()+'" ')
+    				archi.write('"'+auxiliar3.getProfundidabajo().getInfo()+'"->"'+auxiliar3.getInfo()+'" ')
+    				auxiliar3=auxiliar3.getProfundidabajo()
+    				
+    		auxiliar=auxiliar.getDerecha()
+    	auxiliar2=auxiliar2.getAbajo()
+    archi.write("}")
+    archi.close()
+    ejecutar("matriz")	
+def ejecutar(nombre):
+	import os
+	dotPath = "C:\\Graphviz2.30\\bin\\dot.exe"
+	fileInputPath = "C:\\Estructuras\\"+nombre+".txt"
+	fileOutputPath = "C:\\Estructuras\\"+nombre+".jpg"
+	tParam = " -Tjpg "
+	tOParam = " -o "
+	tuple = (dotPath +tParam+ fileInputPath+tOParam+fileOutputPath)
+	os.system(tuple)
 
 
 
@@ -595,12 +640,14 @@ def helloi():
 	parametro = str(request.form['dato'])
 	parametro2=str(request.form['dato2'])
 	matriz.insertar(parametro,parametro2)
+	creartxtmatriz()
 	return "AGREGADO"
 
 @app.route('/eliminarMatriz',methods=['POST']) 
 def helloj():
 	parametro = str(request.form['dato'])
 	matriz.eliminar(parametro)
+	creartxtmatriz()
 	return "FUE ELIMINADO"
 
 @app.route('/letraMatriz',methods=['POST']) 
