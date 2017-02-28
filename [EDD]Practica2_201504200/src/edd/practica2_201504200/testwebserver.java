@@ -35,13 +35,14 @@ public class testwebserver {
         String r = getString("metodoWeb", formBody); 
         System.out.println(r + "---");
     }
-    
+    //ESTOS METODOS SON DE LA LISTA
     public static void insertarlista(String dato)
     {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("dato",dato)
                 .build();
-        getString("insertarLista", formBody);
+        String r = getString("insertarLista", formBody); 
+        System.out.println(r +"");
     }
     public static void buscarlista(String palabra)
     {
@@ -56,7 +57,8 @@ public class testwebserver {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("dato",indice)
                 .build();
-        getString("eliminarLista", formBody); 
+        String r = getString("eliminarLista", formBody);      
+        System.out.println(r +""); 
     }
     //ESTOS METODOS SON DE LA COLA
     public static void agregarCola(String palabra)
@@ -64,7 +66,8 @@ public class testwebserver {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("dato",palabra)
                 .build();
-        getString("agregarCola", formBody); 
+         String r = getString("agregarCola", formBody);      
+        System.out.println(r +""); 
     }
     public static void sacarCola()
     {
@@ -80,7 +83,8 @@ public class testwebserver {
         RequestBody formBody = new FormEncodingBuilder()
                 .add("dato",palabra)
                 .build();
-        getString("agregarPila", formBody); 
+        String r = getString("agregarPila", formBody);      
+        System.out.println(r +""); 
     }
     public static void sacarPila()
     {
@@ -89,6 +93,42 @@ public class testwebserver {
                 .build();
         String r = getString("sacarPila", formBody);      
         System.out.println(r +"");
+    }
+    //ESTOS METODOS SON DE LA MATRIZ
+    public static void agregarMatriz(String nombre, String dominio)
+    {
+        
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato",nombre)
+                .add("dato2",dominio)
+                .build();
+        String r = getString("agregarMatriz", formBody);      
+        System.out.println(r +""); 
+    }
+    public static void buscarLetra(String letra)
+    {
+        
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato",letra)
+                .build();
+        String r = getString("letraMatriz", formBody);      
+        System.out.println(r +""); 
+    }
+    public static void buscarDominio(String dominio)
+    {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato",dominio)
+                .build();
+        String r = getString("dominioMatriz", formBody);      
+        System.out.println(r +""); 
+    }
+    public static void eliminarMatriz(String correo)
+    {
+        RequestBody formBody = new FormEncodingBuilder()
+                .add("dato",correo)
+                .build();
+        String r = getString("eliminarMatriz", formBody);      
+        System.out.println(r +""); 
     }
  
      public static String getString(String metodo, RequestBody formBody) {
